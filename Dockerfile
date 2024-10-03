@@ -6,7 +6,7 @@ COPY *.py ./
 COPY requirements.txt ./
 COPY entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
-ADD  ./models/
+ADD  https://huggingface.co/unsloth/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf?download=true ./models/
 
 # Streamlit
 EXPOSE 8501
