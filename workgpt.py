@@ -11,6 +11,7 @@ from constants import *
 
 truststore.inject_into_ssl()
 
+
 def init_chain():
     embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
 

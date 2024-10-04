@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import logging
+import os
+from dotenv import load_dotenv
 import truststore
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -9,12 +11,29 @@ from langchain.document_loaders.confluence import ContentFormat
 
 from constants import *
 
+load_dotenv()
+
 truststore.inject_into_ssl()
+
+CONFLUENCE_TOKEN = os.getenv('CONFLUENCE_TOKEN')
+CONFLUENCE_BASE_URL = os.getenv('CONFLUENCE_BASE_URL')
+CONFLUENCE_SPACES_TO_LOAD = os.getenv('CONFLUENCE_SPACES_TO_LOAD')
+CONFLUENCE_MAX_PAGES_PER_SPACE = int(os.getenv('CONFLUENCE_MAX_PAGES_PER_SPACE', '10'))
+
+CONFLUENCE_CHUNK_SIZE = int(os.getenv('CONFLUENCE_CHUNK_SIZE', '1000'))
+CONFLUENCE_CHUNK_OVERLAP = int(os.getenv('CONFLUENCE_CHUNK_OVERLAP', '100'))
+
+CONFLUENCE_RETRIES = int(os.getenv('CONFLUENCE_RETRIES', '10'))
+CONFLUENCE_MIN_RETRY_S = int(os.getenv('CONFLUENCE_MIN_RETRY_S', '2'))
+CONFLUENCE_MAX_RETRY_S = int(os.getenv('CONFLUENCE_MAX_RETRY_S', '10'))
 
 def main():
     # embeddings
     embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=CONFLUENCE_CHUNCK_SIZE, chunk_overlap=CONFLUENCE_CHUNCK_OVERLAP)
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=CONFLUENCE_CHUNK_SIZE,
+        chunk_overlap=CONFLUENCE_CHUNK_OVERLAP
+    )
 
     # vectorstore
     db = Chroma(persist_directory=PERSIST_DIRECTORY, embedding_function=embeddings, client_settings=CHROMA_SETTINGS)
