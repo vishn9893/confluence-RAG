@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import logging
-
+import truststore
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
@@ -8,6 +8,8 @@ from langchain.document_loaders import ConfluenceLoader
 from langchain.document_loaders.confluence import ContentFormat
 
 from constants import *
+
+truststore.inject_into_ssl()
 
 def main():
     # embeddings

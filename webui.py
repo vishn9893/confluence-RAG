@@ -48,11 +48,14 @@ if len(query_text):
 if len(result):
     st.subheader('Answer:')
     response['result']
+
     st.subheader('Sources:')
     for document in response['source_documents']:
-        st.write(f"[{document.metadata['title']}]({document.metadata['source']})")
-        document.page_content
-    
+        title = document.metadata.get('title', 'Unknown title')
+        source = document.metadata.get('source', 'Unknown source')
+        st.write(f"[{title}]({source})")
+        st.write(document.page_content)  # To display the content of the document
+
     st.divider()
-    st.text('(Debug) Full reponse:')
-    response
+    st.text('(Debug) Full response:')
+    st.write(response)

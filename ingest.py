@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import logging
 import os
+import truststore
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 
 from langchain.docstore.document import Document
@@ -9,6 +10,8 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 
 from constants import *
+
+truststore.inject_into_ssl()
 
 def load_single_document(file_path: str) -> Document:
     # Loads a single document from a file path
