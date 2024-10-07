@@ -1,5 +1,6 @@
 .env
 db
 models
+LICENSE.md
 myenv
 __pycache__
