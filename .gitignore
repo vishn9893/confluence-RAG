@@ -3,4 +3,5 @@ db
 models
 LICENSE.md
 myenv
+*.pdf
 __pycache__

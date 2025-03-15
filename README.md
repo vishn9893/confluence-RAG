@@ -1,4 +1,4 @@
-# GEHC-GPT
+# confluence-RAG
 QA over Documents pipeline with a focus on privacy. Currently uses LLAMA 3-2 Instruct model logic and runs locally. Suitable for use with company data.  
 Implemented on LangChain and with a simple Streamlit WebUI.  
 Reads from a private Confluence site, calculates embeddings with HuggingFaceEmbeddings and generates responses with the GPT4All LLM.  
